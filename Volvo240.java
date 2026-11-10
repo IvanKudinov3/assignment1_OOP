@@ -2,36 +2,23 @@ import java.awt.*;
 
 public class Volvo240 extends Car{
 
-    public final static double trimFactor = 1.25;
-    
+    private final static double trimFactor = 1.25;
+    private double currentSpeed;
     public Volvo240() {
-        nrDoors = 4;
-        color = Color.black;
-        enginePower = 100;
-        modelName = "Volvo240";
+        super.setColor(Color.black);
+        super.setNrDoors(4);
+        super.setModelName("Volvo240");
+        super.setEnginePower(100);
+
         stopEngine();
     }
 
     @Override
     public double speedFactor() {
-        return enginePower * 0.01 * trimFactor;
+        return getEnginePower() * 0.01 * trimFactor;
     }
 
-    public void incrementSpeed(double amount) {
-        currentSpeed = getCurrentSpeed() + speedFactor() * amount;
-    }
 
-    public void decrementSpeed(double amount) {
-        currentSpeed = getCurrentSpeed() - speedFactor() * amount;
-    }
 
-    // TODO fix this method according to lab pm
-    public void gas(double amount) {
-        incrementSpeed(amount);
-    }
 
-    // TODO fix this method according to lab pm
-    public void brake(double amount) {
-        decrementSpeed(amount);
-    }
 }

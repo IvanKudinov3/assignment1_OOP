@@ -2,15 +2,15 @@ import java.awt.*;
 
 public class Saab95 extends Car {
 
-    public boolean turboOn;
-
+    private boolean turboOn;
+    private double currentSpeed;
     
     public Saab95() {
-        nrDoors = 2;
-        color = Color.red;
-        enginePower = 125;
+        super.setColor(Color.red);
+        super.setNrDoors(2);
+        super.setModelName("Saab95");
+        super.setEnginePower(125);
         turboOn = false;
-        modelName = "Saab95";
         stopEngine();
     }
 
@@ -26,26 +26,9 @@ public class Saab95 extends Car {
     public double speedFactor() {
         double turbo = 1;
         if(turboOn) turbo = 1.3;
-        return enginePower * 0.01 * turbo;
+        return getEnginePower() * 0.01 * turbo;
     }
 
-    public void incrementSpeed(double amount) {
-        currentSpeed = getCurrentSpeed() + speedFactor() * amount;
-        IO.println(currentSpeed);
-    }
 
-    public void decrementSpeed(double amount) {
-        currentSpeed = getCurrentSpeed() - speedFactor() * amount;
-    }
-
-    // TODO fix this method according to assignment pm
-    public void gas(double amount) {
-        incrementSpeed(amount);
-    }
-
-    // TODO fix this method according to assignment pm
-    public void brake(double amount) {
-        decrementSpeed(amount);
-    }
 
 }
