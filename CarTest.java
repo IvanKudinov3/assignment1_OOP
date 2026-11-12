@@ -79,6 +79,104 @@ class CarTest {
         reportResult( "While facing north, turning left, you will be facing", result1&&result2&&result3);
 
     }
+
+    // Test negativeGas
+    private static void testNegativeGas() {
+        Volvo240 volvo240 = new Volvo240();
+
+        volvo240.startEngine();
+
+        double speedBefore = volvo240.getCurrentSpeed();
+
+        volvo240.gas(-0.5);
+
+        boolean result = volvo240.getCurrentSpeed() ==speedBefore;
+
+        reportResult("Negative gas does not change speed",result);
+    }
+
+    // Test negativeBrake
+    public static void testNegativeBrake() {
+        Volvo240 volvo240 = new Volvo240();
+
+        volvo240.startEngine();
+
+        double speedBefore = volvo240.getCurrentSpeed();
+
+        volvo240.brake(-0.5);
+
+        boolean result = volvo240.getCurrentSpeed() ==speedBefore;
+
+        reportResult("Negative brake does not change speed",result);
+    }
+
+    // Test currentSpeed always >= 0.0
+    private static void testBrakeNeverNegative () {
+        Volvo240 volvo240 = new Volvo240();
+
+        volvo240.startEngine();
+        volvo240.brake(1);
+
+        boolean result = volvo240.getCurrentSpeed() >=0.0;
+        reportResult("Braking will never get currentSpeed to be negative",result);
+    }
+
+    // Test currentSpeed never exceeds EnginePower
+    private static void testGasNeverExceedsEnginePower() {
+        Volvo240 volvo240 = new Volvo240();
+
+        volvo240.startEngine();
+        for (int i= 0; i< 100; i++){
+            volvo240.gas(1);
+        }
+
+        boolean result = volvo240.getCurrentSpeed() <= volvo240.getEnginePower();
+
+        reportResult("Gas does not exceed engine power", result);
+    }
+
+    // Test
+    private static void  testGasAboveOne() {
+        Volvo240 volvo240 = new Volvo240();
+
+        volvo240.startEngine();
+
+        double speedBefore = volvo240.getCurrentSpeed();
+
+        volvo240.gas(1.5);
+
+        boolean result = volvo240.getCurrentSpeed()  == speedBefore;
+
+        reportResult("Gas above 1 does not change speed", result);
+    }
+
+    // Test
+    private static void  testBrakeAboveOne() {
+        Volvo240 volvo240 = new Volvo240();
+
+        volvo240.startEngine();
+
+        double speedBefore = volvo240.getCurrentSpeed();
+
+        volvo240.brake(1.5);
+
+        boolean result = volvo240.getCurrentSpeed()  == speedBefore;
+
+        reportResult("Brake above 1 does not change speed", result);
+    }
+
+    // Test Saab95
+    private static void testSaabBrakeNeverNegative() {
+        Saab95 saab95 = new Saab95();
+
+        saab95.startEngine();
+        saab95.brake(1);
+
+        boolean result = saab95.getCurrentSpeed() >= 0.0;
+
+        reportResult("Saab braking never makes speed negative", result);
+    }
+
     static void main() {
         testTurbo();
         testStartEngine();
@@ -86,6 +184,13 @@ class CarTest {
         testMovement();
         testTurnRight();
         testTurnLeft();
+        testNegativeGas();
+        testNegativeBrake();
+        testBrakeNeverNegative();
+        testGasNeverExceedsEnginePower();
+        testGasAboveOne();
+        testBrakeAboveOne();
+        testSaabBrakeNeverNegative();
     }
 
 }
